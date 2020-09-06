@@ -1,11 +1,11 @@
 package model
 
 import (
-	"github.com/integration-system/isp-lib/v2/database"
 	"isp-system-service/entity"
 
 	"github.com/go-pg/pg/v9"
 	"github.com/go-pg/pg/v9/orm"
+	"github.com/integration-system/isp-lib/v2/database"
 )
 
 var emptyDomain = (*entity.Domain)(nil)
@@ -22,17 +22,20 @@ func (r *DomainRepository) GetDomains(list []int32) ([]entity.Domain, error) {
 		q = q.Where("id IN (?)", pg.In(list))
 	}
 	err := q.Order("created_at DESC").Select()
+
 	return res, err
 }
 
 func (r *DomainRepository) GetDomainsBySystemId(systemId int32) ([]entity.Domain, error) {
 	res := make([]entity.Domain, 0)
 	err := r.getDb().Model(&res).Where("system_id = ?", systemId).Order("created_at DESC").Select()
+
 	return res, err
 }
 
 func (r *DomainRepository) CreateDomain(domain entity.Domain) (entity.Domain, error) {
 	_, err := r.getDb().Model(&domain).Insert()
+
 	return domain, err
 }
 
@@ -42,11 +45,13 @@ func (r *DomainRepository) GetDomainByNameAndSystemId(name string, systemId int3
 	if err == pg.ErrNoRows {
 		return nil, nil
 	}
+
 	return domain, err
 }
 
 func (r *DomainRepository) UpdateDomain(domain entity.Domain) (entity.Domain, error) {
 	_, err := r.getDb().Model(&domain).Column("name", "description").WherePK().Returning("*").Update()
+
 	return domain, err
 }
 
@@ -56,6 +61,7 @@ func (r *DomainRepository) GetDomainById(id int32) (*entity.Domain, error) {
 	if err == pg.ErrNoRows {
 		return nil, nil
 	}
+
 	return domain, err
 }
 
@@ -64,6 +70,7 @@ func (r *DomainRepository) DeleteDomains(list []int32) (int, error) {
 	if err != nil {
 		return 0, err
 	}
+
 	return res.RowsAffected(), nil
 }
 
@@ -71,5 +78,6 @@ func (r *DomainRepository) getDb() orm.DB {
 	if r.DB != nil {
 		return r.DB
 	}
+
 	return r.rxClient.Unsafe()
 }

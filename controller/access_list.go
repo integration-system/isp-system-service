@@ -4,14 +4,15 @@ import (
 	"context"
 	"fmt"
 
-	rd "github.com/go-redis/redis/v8"
-	rdLib "github.com/integration-system/isp-lib/v2/redis"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 	"isp-system-service/domain"
 	"isp-system-service/entity"
 	"isp-system-service/model"
 	"isp-system-service/redis"
+
+	rd "github.com/go-redis/redis/v8"
+	rdLib "github.com/integration-system/isp-lib/v2/redis"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 var AccessList accessListController
@@ -28,7 +29,7 @@ type accessListController struct{}
 // @Success 200 {array} domain.MethodInfo "список доступности методов"
 // @Failure 404 {object} structure.GrpcError
 // @Failure 500 {object} structure.GrpcError
-// @Router /access_list/get_by_id [POST]
+// @Router /access_list/get_by_id [POST].
 func (c accessListController) GetById(request domain.Identity) ([]domain.MethodInfo, error) {
 	err := c.checkAppById(request.Id)
 	if err != nil {
@@ -48,7 +49,7 @@ func (c accessListController) GetById(request domain.Identity) ([]domain.MethodI
 // @Success 200 {object} domain.CountResponse "количество измененных строк"
 // @Failure 404 {object} structure.GrpcError
 // @Failure 500 {object} structure.GrpcError
-// @Router /access_list/set_one [POST]
+// @Router /access_list/set_one [POST].
 func (c accessListController) SetOne(request entity.AccessList) (*domain.CountResponse, error) {
 	err := c.checkAppById(request.AppId)
 	if err != nil {
@@ -65,8 +66,10 @@ func (c accessListController) SetOne(request entity.AccessList) (*domain.CountRe
 		_, err = redis.Client.Get().UseDb(rdLib.ApplicationPermissionDb, func(p rd.Pipeliner) error {
 			key := fmt.Sprintf("%d|%s", request.AppId, request.Method)
 			_, err := p.Set(context.Background(), key, request.Value, 0).Result()
+
 			return err
 		})
+
 		return err
 	})
 	if err != nil {
@@ -86,7 +89,7 @@ func (c accessListController) SetOne(request entity.AccessList) (*domain.CountRe
 // @Success 200 {array} domain.MethodInfo "список доступности методов"
 // @Failure 404 {object} structure.GrpcError
 // @Failure 500 {object} structure.GrpcError
-// @Router /access_list/set_list [POST]
+// @Router /access_list/set_list [POST].
 func (c accessListController) SetList(request domain.SetListRequest) ([]domain.MethodInfo, error) {
 	err := c.checkAppById(request.AppId)
 	if err != nil {
@@ -95,7 +98,7 @@ func (c accessListController) SetList(request domain.SetListRequest) ([]domain.M
 
 	oldAccessList := make([]entity.AccessList, 0)
 	err = model.DbClient.RunInTransaction(func(repository model.AccessListRepository) error {
-		if request.RemoveOld == true {
+		if request.RemoveOld {
 			oldAccessList, err = repository.DeleteById(request.AppId)
 			if err != nil {
 				return err
@@ -142,6 +145,7 @@ func (c accessListController) SetList(request domain.SetListRequest) ([]domain.M
 
 			return nil
 		})
+
 		return err
 	})
 	if err != nil {
@@ -168,6 +172,7 @@ func (accessListController) convertAccessList(accessLists []entity.AccessList) [
 			Value:  access.Value,
 		}
 	}
+
 	return methodInfos
 }
 
@@ -179,5 +184,6 @@ func (accessListController) checkAppById(appId int32) error {
 	if app == nil {
 		return status.Errorf(codes.NotFound, "application '%d' not found", appId)
 	}
+
 	return nil
 }

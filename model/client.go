@@ -1,9 +1,10 @@
 package model
 
 import (
+	"isp-system-service/log_code"
+
 	"github.com/integration-system/isp-lib/v2/database"
 	log "github.com/integration-system/isp-log"
-	"isp-system-service/log_code"
 )
 
 var (

@@ -1,10 +1,11 @@
 package redis
 
 import (
+	"isp-system-service/log_code"
+
 	rd "github.com/integration-system/isp-lib/v2/redis"
 	"github.com/integration-system/isp-lib/v2/structure"
 	log "github.com/integration-system/isp-log"
-	"isp-system-service/log_code"
 )
 
 var Client = &redisClient{

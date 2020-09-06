@@ -1,10 +1,11 @@
 package model
 
 import (
+	"isp-system-service/entity"
+
 	"github.com/go-pg/pg/v9"
 	"github.com/go-pg/pg/v9/orm"
 	"github.com/integration-system/isp-lib/v2/database"
-	"isp-system-service/entity"
 )
 
 type AccessListRepository struct {
@@ -18,8 +19,10 @@ func (r *AccessListRepository) GetByAppId(appId int32) ([]entity.AccessList, err
 		if err == pg.ErrNoRows {
 			return nil, nil
 		}
+
 		return nil, err
 	}
+
 	return model, nil
 }
 
@@ -29,8 +32,10 @@ func (r *AccessListRepository) GetByAppIdList(list []int32) ([]entity.AccessList
 		if err == pg.ErrNoRows {
 			return nil, nil
 		}
+
 		return nil, err
 	}
+
 	return model, nil
 }
 
@@ -40,6 +45,7 @@ func (r *AccessListRepository) DeleteById(id int32) ([]entity.AccessList, error)
 		if err == pg.ErrNoRows {
 			return nil, nil
 		}
+
 		return nil, err
 	} else {
 		return model, nil
@@ -52,6 +58,7 @@ func (r *AccessListRepository) DeleteByIdList(list []int32) ([]entity.AccessList
 		if err == pg.ErrNoRows {
 			return nil, nil
 		}
+
 		return nil, err
 	} else {
 		return model, nil
@@ -79,5 +86,6 @@ func (r *AccessListRepository) getDb() orm.DB {
 	if r.DB != nil {
 		return r.DB
 	}
+
 	return r.rxClient.Unsafe()
 }

@@ -5,21 +5,21 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"isp-system-service/conf"
+	"isp-system-service/controller"
+	"isp-system-service/domain"
 	path2 "path"
 
 	"github.com/integration-system/isp-lib/v2/config"
 	"github.com/integration-system/isp-lib/v2/database"
 	"github.com/pressly/goose"
-	"isp-system-service/conf"
-	"isp-system-service/controller"
-	"isp-system-service/domain"
 )
 
 const (
 	insertDomain  = "INSERT INTO %s.domain (id, name, description, system_id) VALUES (%d, '%s', '%s', %d) RETURNING id;"
 	insertService = "INSERT INTO %s.service (id, name, description, domain_id) VALUES (%d, '%s', '%s', %d) RETURNING id;"
 	insertApp     = "INSERT INTO %s.application (id, name, description, service_id, type) VALUES (%d, '%s', '%s', %d, '%s') RETURNING id;"
-	insertToken   = "INSERT INTO %s.token (token, app_id, expire_time) VALUES ('%s', %d, %d);"
+	insertToken   = "INSERT INTO %s.token (token, app_id, expire_time) VALUES ('%s', %d, %d);" //nolint
 
 	setSeqQuery = "SELECT setval('%s.%s_id_seq' :: regclass, %d);"
 
@@ -116,11 +116,13 @@ func insertNode(tx *sql.Tx, query string, scan bool, args ...interface{}) (int64
 			return 0, err
 		}
 	}
+
 	return id, nil
 }
 
 func setSeq(tx *sql.Tx, schema, table string, value int64) error {
 	q := fmt.Sprintf(setSeqQuery, schema, table, value)
 	_, err := tx.Exec(q)
+
 	return err
 }

@@ -5,9 +5,10 @@ import (
 	"math/rand"
 	"time"
 
+	"isp-system-service/conf"
+
 	"github.com/dgrijalva/jwt-go"
 	"github.com/integration-system/isp-lib/v2/config"
-	"isp-system-service/conf"
 )
 
 func init() {
@@ -38,5 +39,6 @@ func (s jwtService) CreateApplication(appId int32, expTime int64) (string, error
 func (jwtService) getSalt() string {
 	salt := make([]byte, rand.Intn(30)+10)
 	rand.Read(salt)
+
 	return hex.EncodeToString(salt)
 }
