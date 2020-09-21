@@ -36,7 +36,7 @@ func (s jwtService) CreateApplication(appId int32, expTime int64) (string, error
 func (jwtService) getSalt() string {
 	const maxSize = 30
 	const minLen = 10
-	randomInt := mathRand.Intn(maxSize) //nolint
+	randomInt := mathRand.Intn(maxSize)
 	salt := make([]byte, randomInt+minLen)
 	_, _ = rand.Read(salt)
 
