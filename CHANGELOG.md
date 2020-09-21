@@ -1,3 +1,5 @@
+### v2.2.1
+* fix linter
 ### v2.2.0
 * update libs
 ### v2.1.0

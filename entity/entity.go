@@ -35,7 +35,7 @@ type Service struct {
 	UpdatedAt   time.Time
 	TableName   string `sql:"system_service.service" json:"-"`
 	Id          int32
-	DomainId    int32 `valid:"required~Required"`
+	DomainId    int32  `valid:"required~Required"`
 	Name        string `valid:"required~Required"`
 	Description string
 }
