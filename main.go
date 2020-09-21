@@ -17,6 +17,7 @@ import (
 	"github.com/integration-system/isp-lib/v2/structure"
 	log "github.com/integration-system/isp-log"
 	"github.com/integration-system/isp-log/stdcodes"
+	_ "isp-system-service/docs"
 )
 
 var version = "0.1.0"
@@ -31,7 +32,7 @@ var version = "0.1.0"
 // @BasePath /api/system
 
 //go:generate swag init --parseDependency
-//go:generate rm -f docs/docs.go docs/swagger.json
+//go:generate rm -f docs/swagger.json
 func main() {
 	bootstrap.
 		ServiceBootstrap(&conf.Configuration{}, &conf.RemoteConfig{}).

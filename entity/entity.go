@@ -12,56 +12,56 @@ const (
 )
 
 type System struct {
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
-	TableName   string `sql:"system_service.system" json:"-"`
+	tableName   string `pg:"system_service.system" json:"-"`
 	Id          int32
 	Name        string `valid:"required~Required"`
 	Description string
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
 }
 
 type Domain struct {
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
-	TableName   string `sql:"system_service.domain" json:"-"`
+	tableName   string `pg:"system_service.domain" json:"-"`
+	Name        string `valid:"required~Required"`
 	Id          int32
 	SystemId    int32
-	Name        string `valid:"required~Required"`
 	Description string
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
 }
 
 type Service struct {
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
-	TableName   string `sql:"system_service.service" json:"-"`
+	tableName   string `pg:"system_service.service" json:"-"`
 	Id          int32
 	DomainId    int32  `valid:"required~Required"`
 	Name        string `valid:"required~Required"`
 	Description string
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
 }
 
 type Application struct {
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
-	TableName   string `sql:"system_service.application" json:"-"`
+	tableName   string `pg:"system_service.application" json:"-"`
 	Name        string `valid:"required~Required"`
 	Description string
 	Type        string `valid:"required~Required,in(SYSTEM|MOBILE)"`
 	ServiceId   int32  `valid:"required~Required"`
 	Id          int32
+	CreatedAt   time.Time
+	UpdatedAt   time.Time
 }
 
 type Token struct {
-	TableName  string `sql:"system_service.token" json:"-"`
-	Token      string `valid:"required~Required" sql:"pk:token"`
+	tableName  string `pg:"system_service.token" json:"-"`
+	Token      string `valid:"required~Required" pg:"pk:token"`
 	AppId      int32  `valid:"required~Required"`
 	ExpireTime int64
 	CreatedAt  time.Time
 }
 
 type AccessList struct {
-	TableName string `sql:"system_service.access_list" json:"-"`
-	Method    string `sql:",pk"`
-	AppId     int32  `sql:",pk"`
+	tableName string `pg:"system_service.access_list" json:"-"`
+	Method    string `pg:",pk"`
+	AppId     int32  `pg:",pk"`
 	Value     bool
 }
