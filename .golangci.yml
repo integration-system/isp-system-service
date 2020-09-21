@@ -13,6 +13,7 @@ linters:
     - goerr113
     - lll
     - dupl
+    - gocritic
 
 linters-settings:
   maligned:
