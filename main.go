@@ -104,7 +104,6 @@ func onRemoteConfigReceive(remoteConfig, oldConfig *conf.RemoteConfig) {
 	model.DbClient.ReceiveConfiguration(remoteConfig.Database)
 	metric.InitCollectors(remoteConfig.Metrics, oldConfig.Metrics)
 	metric.InitHttpServer(remoteConfig.Metrics)
-	// ensureRootToken()
 }
 
 func onLocalConfigLoad(cfg *conf.Configuration) {

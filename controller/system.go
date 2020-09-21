@@ -25,7 +25,7 @@ type systemController struct{}
 // @Param body body []integer false "Массив идентификаторов систем"
 // @Success 200 {array} entity.System
 // @Failure 500 {object} structure.GrpcError
-// @Router /system/get_systems [POST].
+// @Router /system/get_systems [POST]
 func (systemController) GetSystems(list []int32) ([]entity.System, error) {
 	res, err := model.SystemRep.GetSystems(list)
 	if err != nil {
@@ -46,7 +46,7 @@ func (systemController) GetSystems(list []int32) ([]entity.System, error) {
 // @Failure 404 {object} structure.GrpcError
 // @Failure 409 {object} structure.GrpcError
 // @Failure 500 {object} structure.GrpcError
-// @Router /system/create_update_system [POST].
+// @Router /system/create_update_system [POST]
 func (systemController) CreateUpdateSystem(system entity.System) (*entity.System, error) {
 	existed, err := model.SystemRep.GetSystemByName(system.Name)
 	if err != nil {
@@ -95,7 +95,7 @@ func (systemController) CreateUpdateSystem(system entity.System) (*entity.System
 // @Success 200 {object} entity.System
 // @Failure 404 {object} structure.GrpcError
 // @Failure 500 {object} structure.GrpcError
-// @Router /system/get_system_by_id [POST].
+// @Router /system/get_system_by_id [POST]
 func (systemController) GetSystemById(identity domain.Identity) (*entity.System, error) {
 	sys, err := model.SystemRep.GetSystemById(identity.Id)
 	if err != nil {
@@ -118,7 +118,7 @@ func (systemController) GetSystemById(identity domain.Identity) (*entity.System,
 // @Success 200 {object} domain.DeleteResponse
 // @Failure 400 {object} structure.GrpcError
 // @Failure 500 {object} structure.GrpcError
-// @Router /system/delete_systems [POST].
+// @Router /system/delete_systems [POST]
 func (systemController) DeleteSystems(list []int32) (domain.DeleteResponse, error) {
 	if len(list) == 0 {
 		return domain.DeleteResponse{}, status.Error(codes.InvalidArgument, "At least one id are required")

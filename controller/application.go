@@ -33,7 +33,7 @@ type applicationController struct{}
 // @Param body body []integer false "Массив идентификаторов приложений"
 // @Success 200 {array} domain.AppWithToken
 // @Failure 500 {object} structure.GrpcError
-// @Router /application/get_applications [POST].
+// @Router /application/get_applications [POST]
 func (c applicationController) GetApplications(list []int32) ([]*domain.AppWithToken, error) {
 	res, err := model.AppRep.GetApplications(list)
 	if err != nil {
@@ -52,7 +52,7 @@ func (c applicationController) GetApplications(list []int32) ([]*domain.AppWithT
 // @Param body body domain.Identity true "Идентификатор серсиса"
 // @Success 200 {array} domain.AppWithToken
 // @Failure 500 {object} structure.GrpcError
-// @Router /application/get_applications_by_service_id [POST].
+// @Router /application/get_applications_by_service_id [POST]
 func (c applicationController) GetApplicationsByServiceId(identity domain.Identity) ([]*domain.AppWithToken, error) {
 	arr, err := model.AppRep.GetApplicationsByServiceId(identity.Id)
 	if err != nil {
@@ -74,7 +74,7 @@ func (c applicationController) GetApplicationsByServiceId(identity domain.Identi
 // @Failure 404 {object} structure.GrpcError
 // @Failure 409 {object} structure.GrpcError
 // @Failure 500 {object} structure.GrpcError
-// @Router /application/create_update_application [POST].
+// @Router /application/create_update_application [POST]
 func (c applicationController) CreateUpdateApplication(app entity.Application) (*domain.AppWithToken, error) {
 	existed, err := model.AppRep.GetApplicationByNameAndServiceId(app.Name, app.ServiceId)
 	if err != nil {
@@ -142,7 +142,7 @@ func (c applicationController) CreateUpdateApplication(app entity.Application) (
 // @Failure 400 {object} structure.GrpcError
 // @Failure 404 {object} structure.GrpcError
 // @Failure 500 {object} structure.GrpcError
-// @Router /application/get_application_by_id [POST].
+// @Router /application/get_application_by_id [POST]
 func (c applicationController) GetApplicationById(identity domain.Identity) (*domain.AppWithToken, error) {
 	application, err := model.AppRep.GetApplicationById(identity.Id)
 	if err != nil {
@@ -170,7 +170,7 @@ func (c applicationController) GetApplicationById(identity domain.Identity) (*do
 // @Success 200 {object} domain.DeleteResponse
 // @Failure 400 {object} structure.GrpcError
 // @Failure 500 {object} structure.GrpcError
-// @Router /application/delete_applications [POST].
+// @Router /application/delete_applications [POST]
 func (applicationController) DeleteApplications(list []int32) (domain.DeleteResponse, error) {
 	if len(list) == 0 {
 		return domain.DeleteResponse{}, status.Errorf(codes.InvalidArgument, "At least one id are required")
@@ -249,7 +249,7 @@ func (applicationController) DeleteApplications(list []int32) (domain.DeleteResp
 // @Produce  json
 // @Success 200 {array} domain.DomainWithServices
 // @Failure 500 {object} structure.GrpcError
-// @Router /application/get_system_tree [POST].
+// @Router /application/get_system_tree [POST]
 func (applicationController) GetSystemTree(md metadata.MD) ([]*domain.DomainWithServices, error) {
 	sysId, err := utils.ResolveMetadataIdentity(utils.SystemIdHeader, md)
 	if err != nil {

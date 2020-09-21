@@ -29,7 +29,7 @@ type accessListController struct{}
 // @Success 200 {array} domain.MethodInfo "список доступности методов"
 // @Failure 404 {object} structure.GrpcError
 // @Failure 500 {object} structure.GrpcError
-// @Router /access_list/get_by_id [POST].
+// @Router /access_list/get_by_id [POST]
 func (c accessListController) GetById(request domain.Identity) ([]domain.MethodInfo, error) {
 	err := c.checkAppById(request.Id)
 	if err != nil {
@@ -49,7 +49,7 @@ func (c accessListController) GetById(request domain.Identity) ([]domain.MethodI
 // @Success 200 {object} domain.CountResponse "количество измененных строк"
 // @Failure 404 {object} structure.GrpcError
 // @Failure 500 {object} structure.GrpcError
-// @Router /access_list/set_one [POST].
+// @Router /access_list/set_one [POST]
 func (c accessListController) SetOne(request entity.AccessList) (*domain.CountResponse, error) {
 	err := c.checkAppById(request.AppId)
 	if err != nil {
@@ -89,7 +89,7 @@ func (c accessListController) SetOne(request entity.AccessList) (*domain.CountRe
 // @Success 200 {array} domain.MethodInfo "список доступности методов"
 // @Failure 404 {object} structure.GrpcError
 // @Failure 500 {object} structure.GrpcError
-// @Router /access_list/set_list [POST].
+// @Router /access_list/set_list [POST]
 func (c accessListController) SetList(request domain.SetListRequest) ([]domain.MethodInfo, error) {
 	err := c.checkAppById(request.AppId)
 	if err != nil {

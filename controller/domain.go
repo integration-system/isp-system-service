@@ -25,7 +25,7 @@ type domainController struct{}
 // @Param body body integer false "Идентификатор системы"
 // @Success 200 {array} entity.Domain
 // @Failure 500 {object} structure.GrpcError
-// @Router /domain/get_domains_by_system_id [POST].
+// @Router /domain/get_domains_by_system_id [POST]
 func (domainController) GetDomainsBySystemId(md metadata.MD) ([]entity.Domain, error) {
 	sysId, err := utils.ResolveMetadataIdentity(utils.SystemIdHeader, md)
 	if err != nil {
@@ -44,7 +44,7 @@ func (domainController) GetDomainsBySystemId(md metadata.MD) ([]entity.Domain, e
 // @Param body body entity.Domain true "Объект домена"
 // @Success 200 {object} entity.Domain
 // @Failure 500 {object} structure.GrpcError
-// @Router /domain/create_update_domain [POST].
+// @Router /domain/create_update_domain [POST]
 func (domainController) CreateUpdateDomain(domain entity.Domain, md metadata.MD) (*entity.Domain, error) {
 	existed, err := model.DomainRep.GetDomainByNameAndSystemId(domain.Name, domain.SystemId)
 	if err != nil {
@@ -108,7 +108,7 @@ func (domainController) CreateUpdateDomain(domain entity.Domain, md metadata.MD)
 // @Success 200 {object} entity.Domain
 // @Failure 404 {object} structure.GrpcError
 // @Failure 500 {object} structure.GrpcError
-// @Router /domain/get_domain_by_id [POST].
+// @Router /domain/get_domain_by_id [POST]
 func (domainController) GetDomainById(identity domain.Identity) (*entity.Domain, error) {
 	d, err := model.DomainRep.GetDomainById(identity.Id)
 	if err != nil {
@@ -131,7 +131,7 @@ func (domainController) GetDomainById(identity domain.Identity) (*entity.Domain,
 // @Success 200 {object} domain.DeleteResponse
 // @Failure 400 {object} structure.GrpcError
 // @Failure 500 {object} structure.GrpcError
-// @Router /domain/delete_domains [POST].
+// @Router /domain/delete_domains [POST]
 func (domainController) DeleteDomains(list []int32) (domain.DeleteResponse, error) {
 	if len(list) == 0 {
 		return domain.DeleteResponse{Deleted: 0}, status.Errorf(codes.InvalidArgument, "At least one id are required")

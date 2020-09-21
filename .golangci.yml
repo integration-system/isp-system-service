@@ -11,6 +11,8 @@ linters:
     - golint # подумать, может вернуть
     - stylecheck # подумать, может вернуть
     - goerr113
+    - lll
+    - dupl
 
 linters-settings:
   maligned:

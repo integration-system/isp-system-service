@@ -38,7 +38,7 @@ type tokenController struct{}
 // @Param body body domain.CreateTokenRequest true "Объект создания токена"
 // @Success 200 {object} domain.AppWithToken
 // @Failure 500 {object} structure.GrpcError
-// @Router /token/create_token [POST].
+// @Router /token/create_token [POST]
 func (c tokenController) CreateToken(req domain.CreateTokenRequest) (*domain.AppWithToken, error) {
 	m, err, app := c.getIdMap(req.AppId)
 	if err != nil {
@@ -89,7 +89,7 @@ func (c tokenController) CreateToken(req domain.CreateTokenRequest) (*domain.App
 // @Param body body domain.RevokeTokensRequest true "Объект отзыва токенов"
 // @Success 200 {object} domain.AppWithToken
 // @Failure 500 {object} structure.GrpcError
-// @Router /token/revoke_tokens [POST].
+// @Router /token/revoke_tokens [POST]
 func (c tokenController) RevokeTokens(req domain.RevokeTokensRequest) (*domain.AppWithToken, error) {
 	app, err := model.AppRep.GetApplicationById(req.AppId)
 	if err != nil {
@@ -118,7 +118,7 @@ func (c tokenController) RevokeTokens(req domain.RevokeTokensRequest) (*domain.A
 // @Param body body domain.Identity true "Идентификатор приложения"
 // @Success 200 {object} domain.DeleteResponse
 // @Failure 500 {object} structure.GrpcError
-// @Router /token/revoke_tokens_for_app [POST].
+// @Router /token/revoke_tokens_for_app [POST]
 func (c tokenController) RevokeTokensForApp(identity domain.Identity) (*domain.DeleteResponse, error) {
 	return c.revokeTokensForApp(identity)
 }
@@ -132,7 +132,7 @@ func (c tokenController) RevokeTokensForApp(identity domain.Identity) (*domain.D
 // @Param body body domain.Identity true "Идентификатор приложения"
 // @Success 200 {array} entity.Token
 // @Failure 500 {object} structure.GrpcError
-// @Router /token/get_tokens_by_app_id [POST].
+// @Router /token/get_tokens_by_app_id [POST]
 func (tokenController) GetTokensByAppId(identity domain.Identity) ([]entity.Token, error) {
 	return model.TokenRep.GetTokensByAppId(identity.Id)
 }
