@@ -3,7 +3,7 @@ package service
 import (
 	"crypto/rand"
 	"encoding/hex"
-	"math/big"
+	mathRand "math/rand"
 	"time"
 
 	"isp-system-service/conf"
@@ -36,8 +36,8 @@ func (s jwtService) CreateApplication(appId int32, expTime int64) (string, error
 func (jwtService) getSalt() string {
 	const maxSize = 30
 	const minLen = 10
-	randomInt, _ := rand.Int(rand.Reader, big.NewInt(maxSize))
-	salt := make([]byte, randomInt.Int64()+minLen)
+	randomInt := mathRand.Intn(maxSize) //nolint
+	salt := make([]byte, randomInt+minLen)
 	_, _ = rand.Read(salt)
 
 	return hex.EncodeToString(salt)

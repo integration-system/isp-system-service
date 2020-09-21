@@ -28,7 +28,7 @@ var version = "0.1.0"
 
 // @license.name GNU GPL v3.0
 
-// @host localhost:9003
+// @host localhost:9000
 // @BasePath /api/system
 
 //go:generate swag init --parseDependency

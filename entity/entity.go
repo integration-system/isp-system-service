@@ -12,7 +12,7 @@ const (
 )
 
 type System struct {
-	tableName   string `pg:"system_service.system" json:"-"`
+	tableName   string `pg:"system_service.system" json:"-"` //nolint
 	Id          int32
 	Name        string `valid:"required~Required"`
 	Description string
@@ -21,7 +21,7 @@ type System struct {
 }
 
 type Domain struct {
-	tableName   string `pg:"system_service.domain" json:"-"`
+	tableName   string `pg:"system_service.domain" json:"-"` //nolint
 	Name        string `valid:"required~Required"`
 	Id          int32
 	SystemId    int32
@@ -31,7 +31,7 @@ type Domain struct {
 }
 
 type Service struct {
-	tableName   string `pg:"system_service.service" json:"-"`
+	tableName   string `pg:"system_service.service" json:"-"` //nolint
 	Id          int32
 	DomainId    int32  `valid:"required~Required"`
 	Name        string `valid:"required~Required"`
@@ -41,7 +41,7 @@ type Service struct {
 }
 
 type Application struct {
-	tableName   string `pg:"system_service.application" json:"-"`
+	tableName   string `pg:"system_service.application" json:"-"` //nolint
 	Name        string `valid:"required~Required"`
 	Description string
 	Type        string `valid:"required~Required,in(SYSTEM|MOBILE)"`
@@ -52,7 +52,7 @@ type Application struct {
 }
 
 type Token struct {
-	tableName  string `pg:"system_service.token" json:"-"`
+	tableName  string `pg:"system_service.token" json:"-"` //nolint
 	Token      string `valid:"required~Required" pg:"pk:token"`
 	AppId      int32  `valid:"required~Required"`
 	ExpireTime int64
@@ -60,7 +60,7 @@ type Token struct {
 }
 
 type AccessList struct {
-	tableName string `pg:"system_service.access_list" json:"-"`
+	tableName string `pg:"system_service.access_list" json:"-"` //nolint
 	Method    string `pg:",pk"`
 	AppId     int32  `pg:",pk"`
 	Value     bool
