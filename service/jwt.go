@@ -16,6 +16,10 @@ var Jwt jwtService
 
 type jwtService struct{}
 
+func init() {
+	mathRand.Seed(time.Now().UnixNano())
+}
+
 func (s jwtService) CreateApplication(appId int32, expTime int64) (string, error) {
 	var (
 		claims  = jwt.MapClaims{}
@@ -34,9 +38,9 @@ func (s jwtService) CreateApplication(appId int32, expTime int64) (string, error
 }
 
 func (jwtService) getSalt() string {
-	const maxSize = 30
+	const randIntSize = 30
 	const minLen = 10
-	randomInt := mathRand.Intn(maxSize)
+	randomInt := mathRand.Intn(randIntSize)
 	salt := make([]byte, randomInt+minLen)
 	_, _ = rand.Read(salt)
 
