@@ -9,5 +9,5 @@ require (
 	github.com/integration-system/isp-lib/v2 v2.8.7
 	github.com/integration-system/isp-log v1.1.8
 	github.com/pressly/goose v2.6.0+incompatible
-	google.golang.org/grpc v1.38.0
+	google.golang.org/grpc v1.53.0
 )
